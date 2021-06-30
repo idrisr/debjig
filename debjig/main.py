@@ -1,5 +1,10 @@
 from functools import wraps, partial
 import logging
+import sys
+
+logging.basicConfig(stream=sys.stderr)
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 
 def wrapper(obj, f=None):
@@ -10,20 +15,23 @@ def wrapper(obj, f=None):
 
 def log(level=logging.DEBUG, msg=None):
     def _middle(f):
-        @wraps(f)
-        def _inner(*args, **kwargs):
-            logger.log(level, msg)
-            f(*args, **kwargs)
-        return _inner
-        
-        @wrapper
+        @wrapper(f)
         def set_level(newlevel):
             nonlocal level
             level=newlevel
 
-        @wrapper
+        @wrapper(f)
         def set_msg(newmsg):
             nonlocal msg
             msg=newmsg
-            
+
+        @wraps(f)
+        def _inner(*args, **kwargs):
+            nonlocal msg
+            if msg is None:
+                msg = '.'.join(f.__qualname__.split('.')[-2:])
+            logger.log(level, msg)
+            f(*args, **kwargs)
+
+        return _inner
     return _middle
