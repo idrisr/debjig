@@ -7,6 +7,6 @@ with print and log statement is tedious.
 Instead of large alterations to source which can be difficult to undo, `debjib`
 provides a simple decorator function `log()` which can decorate any function.
 
-Functions decorated with `log()` will log their names to `std.err` when they are
+Functions decorated with `log()` will log their names to `sys.stderr` when they are
 called. Going back to the original is as simple as removing the `log()`
 decorator.
