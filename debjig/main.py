@@ -9,9 +9,6 @@ logging.basicConfig(stream=sys.stderr)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
-def logclass(cls):
-    pass
-
 
 def wrapper(obj, f=None):
     if f is None: return partial(wrapper, obj)
@@ -41,3 +38,15 @@ def log(level=logging.DEBUG, msg=None):
 
         return _inner
     return _middle
+
+
+def logclass(cls):
+    if isclass(cls):
+        for nm in dir(cls):
+            attr=getattr(cls, nm)
+            try:
+                if callable(attr) and not nm.startswith('_'): setattr(cls, nm, log()(attr))
+            except TypeError:
+                pass
+
+    return cls

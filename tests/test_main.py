@@ -1,6 +1,7 @@
 import pytest
 import logging
 from debjig import log 
+from debjig import logclass
 
 LOGGER = logging.getLogger(__name__)
 
@@ -44,3 +45,13 @@ def test_returns():
     @log()
     def add(j, k): return j+k
     assert add(1, 2) == 3
+
+def test_log_class(caplog):
+    @logclass
+    class B:
+        def z(self, a): return a+1
+        def y(self, a): return a-1
+
+    with caplog.at_level(logging.DEBUG):
+        assert B().z(1) == 2
+        assert 'B.z' in caplog.text
