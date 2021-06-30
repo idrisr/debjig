@@ -10,3 +10,11 @@ provides a simple decorator function `log()` which can decorate any function.
 Functions decorated with `log()` will log their names to `sys.stderr` when they are
 called. Going back to the original is as simple as removing the `log()`
 decorator.
+
+## FAQ
+
+1. Where the heck does `debjig` get its name from?
+
+> It's a portmanteua of debug and jig. When working with one's hands, one of the
+most important abilities you can have is to make custom tools for each job, aka
+a jig. This package is a jig to help exploring new code.
