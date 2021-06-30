@@ -39,4 +39,3 @@ def test_level_setting(caplog, A, clearlog):
         A().b.set_msg("yo man")
         A().b()
         assert not caplog.text
-
