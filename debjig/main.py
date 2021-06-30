@@ -1,3 +1,5 @@
+""" modified from a chapter 9 exercise in the Python Cookbook by David Beazly """
+
 from functools import wraps, partial
 import logging
 import sys
