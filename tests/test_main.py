@@ -37,4 +37,6 @@ def test_level_setting(caplog, A, clearlog):
     with caplog.at_level(logging.WARNING):
         A().b.set_level(logging.WARNING-1)
         A().b.set_msg("yo man")
+        A().b()
         assert not caplog.text
+
