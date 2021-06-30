@@ -1,12 +1,16 @@
 """ modified from a chapter 9 exercise in the Python Cookbook by David Beazly """
 
 from functools import wraps, partial
+from inspect import isclass
 import logging
 import sys
 
 logging.basicConfig(stream=sys.stderr)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
+
+def logclass(cls):
+    pass
 
 
 def wrapper(obj, f=None):
@@ -33,7 +37,7 @@ def log(level=logging.DEBUG, msg=None):
             if msg is None:
                 msg = '.'.join(f.__qualname__.split('.')[-2:])
             logger.log(level, msg)
-            f(*args, **kwargs)
+            return f(*args, **kwargs)
 
         return _inner
     return _middle

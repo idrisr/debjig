@@ -39,3 +39,8 @@ def test_level_setting(caplog, A, clearlog):
         A().b.set_msg("yo man")
         A().b()
         assert not caplog.text
+
+def test_returns():
+    @log()
+    def add(j, k): return j+k
+    assert add(1, 2) == 3
